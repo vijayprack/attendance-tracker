@@ -14,7 +14,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get('/', (req, res) => {
-    res.send('Welome to Attendance Traker.')
+    if (error){
+        return res.status(400).json({"Status Code": 400, "Message": "Bad Request"})
+    }
+    res.statusCode(200).send('Welome to Attendance Traker.')
 });
 
 app.use('/employee', employee);

@@ -5,7 +5,7 @@ const {checkinDate} = require("./date");
 const getCheckinData = (req, res) => {
     client.query('SELECT * FROM checkin ORDER BY employee_id ASC', (error, data) => {
         if (error){
-            throw error;
+            return res.status(400).json({"Status Code": 400, "Message": "Bad Request"})
         };
         res.status(200).json(data.rows)
     });
@@ -17,7 +17,7 @@ const getCheckinDataById = (req, res) => {
 
     client.query(`SELECT * FROM checkin WHERE employee_id = $1`, [id], (error, data) => {
         if (error){
-            throw error;
+            return res.status(404).json({"Status Code": 404, "Message": "Not Found"})
         };
         res.status(200).json(data.rows)
     });
@@ -31,7 +31,7 @@ const addEmployeeInCheckIn = (req, res) => {
     [employee_id],
     (error, data) => {
         if (error){
-            throw error;
+            return res.status(400).json({"Status Code": 400, "Message": "Bad Request"})
         };
         res.status(201).send(`Employee added with ID: ${data.rows[0]['id']} 
                              and Employee ID: ${employee_id}`)
@@ -47,7 +47,7 @@ const updateEmployeeInCheckIn = (req, res) => {
     [id],
     (error, data) => {
         if (error){
-            throw error;
+            return res.status(404).json({"Status Code": 404, "Message": "Not Found"})
         };
         res.status(200).send(`ID: ${id} is checked in`);
     });
@@ -59,7 +59,7 @@ const deleteEmployeeInCheckIn = (req, res) => {
 
     client.query('DELETE FROM checkin WHERE employee_id = $1;', [id], (error, data) => {
         if (error){
-            throw error;
+            return res.status(404).json({"Status Code": 404, "Message": "Not Found"})
         };
         res.status(200).send(`Employee deleted with ID: ${id}`)
     });

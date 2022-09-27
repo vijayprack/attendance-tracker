@@ -10,7 +10,7 @@ const getAttendanceData = (req, res) => {
             ORDER BY id ASC;`,
             (error, data) => {
         if (error){
-            throw error;
+            res.status(400).json({"Status Code": 400, "Message": "Bad Request"})
         };
         res.status(200).json(data.rows);
     });
@@ -25,7 +25,7 @@ const getAttendanceById = (req, res) => {
     ON employees.id=checkin.employee_id INNER JOIN checkout ON 
     employees.id=checkout.employee_id WHERE employees.id = $1`, [id], (error, data) => {
         if (error){
-            throw error;
+            res.status(404).json({"Status Code": 404, "Message": "NOt Found"})
         };
         res.status(200).json(data.rows);
     });
