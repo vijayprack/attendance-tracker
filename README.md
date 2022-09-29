@@ -10,7 +10,7 @@ This project is dependent on `nodejs` and `npm` make sure it is installed.
     ```
 3. Run the command below to setup environment and install project dependenies.
     ```sh
-    npm init & npm install
+    npm install
     ```
 
 ## Run the Server
